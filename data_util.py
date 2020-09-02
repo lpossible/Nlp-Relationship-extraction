@@ -1,4 +1,4 @@
-"""Data util
+"""Data util to get train.txt
 @author:luo ping
 @date:2020-8-19
 """
@@ -9,6 +9,7 @@ import re
 def clean_str(text):
     """clean str"""
     text = re.sub(r"\n", "", text)
+    text = re.sub(r"(.*?)\t", "", text)
     text = re.sub(r"\"", "", text)
     text = re.sub(r"<.*?>", "", text)
     text = re.sub(r"what's", "what is ", text)
@@ -23,8 +24,9 @@ def clean_str(text):
     text = re.sub(r"\'re", " are ", text)
     text = re.sub(r"\'d", " would ", text)
     text = re.sub(r"\'ll", " will ", text)
-    text = re.sub(r",", " ", text)
-    text = re.sub(r"\.", " ", text)
+    text = re.sub(r",", " , ", text)
+    text = re.sub(r"\.", " . ", text)
+    text = re.sub(r";", " ; ", text)
     text = re.sub(r"!", " ! ", text)
     text = re.sub(r":", " : ", text)
     text = re.sub(r" e g ", " eg ", text)
@@ -39,21 +41,12 @@ def clean_str(text):
 
 
 if __name__ == "__main__":
-    # First step
-    fw = open("data/step1.txt", 'w')
-    with open("data/original.txt") as fr:
-        lines = fr.readlines()
-        for line in lines:
-            line = clean_str(line)
-            fw.write(line + "\n")
-    fw.close()
-    # Second step
     j = 0
-    fw = open("data/train.txt", 'w')
-    with open("data/step1.txt") as fr:
+    fw = open("data/test.txt", 'w')
+    with open("data/test_original.txt") as fr:
         for line in fr.readlines():
             if j % 4 == 0:
-                line = re.sub(r"\n", " ", line)
+                line = clean_str(line)
                 fw.write(line)
             if j % 2 == 1 and line != '\n':
                 fw.write(line + '\n')
