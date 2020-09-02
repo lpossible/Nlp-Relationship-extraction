@@ -4,6 +4,7 @@
 """
 import re
 import pickle
+import numpy as np
 
 
 # clean the data
@@ -71,6 +72,6 @@ with open("data/position.txt") as fr:
             data_pos1.append(pos1)
             data_pos2.append(pos2)
 with open("data/pos1_info.pkl", "wb") as fw:
-    pickle.dump(data_pos1, fw)
+    pickle.dump(np.asarray(data_pos1), fw)
 with open("data/pos2_info.pkl", "wb") as fw:
-    pickle.dump(data_pos2, fw)
+    pickle.dump(np.asarray(data_pos2), fw)
