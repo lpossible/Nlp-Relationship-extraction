@@ -59,6 +59,9 @@ def clean_str(text):
 #         j += 1
 # 提取位置信息
 data_pos1, data_pos2 = [], []
+#
+max_pos1 = 0
+max_pos2 = 0
 with open("data/position.txt") as fr:
     lines = fr.readlines()
     for line in lines:
@@ -67,6 +70,12 @@ with open("data/position.txt") as fr:
             e1_pos = line.split().index("_e1_")
             e2_pos = line.split().index("_e2_")
             for i in range(len(line.split())):
+                pos1_value = i - e1_pos + len(line.split()) - 1
+                pos2_value = i - e2_pos + len(line.split()) - 1
+                if pos1_value > max_pos1:
+                    max_pos1 = pos1_value
+                if pos2_value > max_pos2:
+                    max_pos2 = pos2_value
                 pos1.append(i - e1_pos + len(line.split()) - 1)
                 pos2.append(i - e2_pos + len(line.split()) - 1)
             data_pos1.append(pos1)
@@ -75,3 +84,5 @@ with open("data/pos1_info.pkl", "wb") as fw:
     pickle.dump(np.asarray(data_pos1), fw)
 with open("data/pos2_info.pkl", "wb") as fw:
     pickle.dump(np.asarray(data_pos2), fw)
+print(max_pos1)
+print(max_pos2)

@@ -42,12 +42,12 @@ def clean_str(text):
 
 if __name__ == "__main__":
     j = 0
-    fw = open("data/test.txt", 'w')
-    with open("data/test_original.txt") as fr:
+    fw = open("data/train.txt", 'w')
+    with open("data/train_original.txt") as fr:
         for line in fr.readlines():
             if j % 4 == 0:
                 line = clean_str(line)
                 fw.write(line)
             if j % 2 == 1 and line != '\n':
-                fw.write(line + '\n')
+                fw.write(' ' + line + '\n')
             j += 1
